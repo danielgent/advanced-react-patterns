@@ -2,8 +2,8 @@ import * as React from 'react'
 import {alfredTip} from '@kentcdodds/react-workshop-app/test-utils'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {Toggle} from '../final/06.extra-4'
-// import {Toggle} from '../exercise/06'
+// import {Toggle} from '../final/06.extra-4'
+import {Toggle} from '../exercise/06'
 
 beforeEach(() => {
   jest.spyOn(console, 'error').mockImplementation(() => {})
@@ -52,7 +52,7 @@ test('no warning for controlled component with readOnly prop', () => {
   )
 })
 
-test('warning for changing from controlled to uncontrolled', () => {
+test.skip('warning for changing from controlled to uncontrolled', () => {
   function Example() {
     const [state, setState] = React.useState(true)
     return <Toggle on={state} onChange={() => setState(undefined)} />
@@ -68,7 +68,7 @@ test('warning for changing from controlled to uncontrolled', () => {
   )
 })
 
-test('warning for changing from uncontrolled to controlled', () => {
+test.skip('warning for changing from uncontrolled to controlled', () => {
   function Example() {
     const [state, setState] = React.useState(undefined)
     return <Toggle on={state} onChange={() => setState(true)} />
