@@ -6,12 +6,15 @@ import {Switch} from '../switch'
 
 const callAll = (...fns) => (...args) => fns.forEach(fn => fn?.(...args))
 
+const TOGGLE = 'toggle'
+const RESET = 'reset'
+
 function toggleReducer(state, {type, initialState}) {
   switch (type) {
-    case 'toggle': {
+    case TOGGLE: {
       return {on: !state.on}
     }
-    case 'reset': {
+    case RESET: {
       return initialState
     }
     default: {
@@ -19,6 +22,8 @@ function toggleReducer(state, {type, initialState}) {
     }
   }
 }
+toggleReducer.TOGGLE = TOGGLE
+toggleReducer.RESET = RESET
 
 // 🐨 add a new option called `reducer` that defaults to `toggleReducer`
 function useToggle({initialOn = false, reducer = toggleReducer} = {}) {
@@ -61,20 +66,10 @@ function App() {
   const clickedTooMuch = timesClicked >= 4
 
   function toggleStateReducer(state, action) {
-    switch (action.type) {
-      case 'toggle': {
-        if (clickedTooMuch) {
-          return {on: state.on}
-        }
-        return {on: !state.on}
-      }
-      case 'reset': {
-        return {on: false}
-      }
-      default: {
-        throw new Error(`Unsupported type: ${action.type}`)
-      }
+    if (action.type === toggleReducer.TOGGLE && timesClicked >= 4) {
+      return {on: state.on}
     }
+    return toggleReducer(state, action)
   }
 
   const {on, getTogglerProps, getResetterProps} = useToggle({
