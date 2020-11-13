@@ -52,7 +52,7 @@ test('no warning for controlled component with readOnly prop', () => {
   )
 })
 
-test.skip('warning for changing from controlled to uncontrolled', () => {
+test('warning for changing from controlled to uncontrolled', () => {
   function Example() {
     const [state, setState] = React.useState(true)
     return <Toggle on={state} onChange={() => setState(undefined)} />
@@ -68,7 +68,7 @@ test.skip('warning for changing from controlled to uncontrolled', () => {
   )
 })
 
-test.skip('warning for changing from uncontrolled to controlled', () => {
+test('warning for changing from uncontrolled to controlled', () => {
   function Example() {
     const [state, setState] = React.useState(undefined)
     return <Toggle on={state} onChange={() => setState(true)} />

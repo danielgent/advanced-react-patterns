@@ -36,11 +36,23 @@ function useToggle({
   on: controlledOn,
   readOnly,
 } = {}) {
-  console.log('controlledOn ', controlledOn)
-  console.log('onChange ', onChange)
+  // console.log('controlledOn ', controlledOn)
+  // console.log('onChange ', onChange)
   warning(
     !(!readOnly && controlledOn !== undefined && !onChange),
     'readOnly onChange initialOn',
+  )
+
+  const [lastControlledOn, setLastControlledOn] = React.useState(controlledOn)
+
+  warning(
+    !(controlledOn !== undefined && lastControlledOn === undefined),
+    'from uncontrolled to controlled',
+  )
+
+  warning(
+    !(controlledOn === undefined && lastControlledOn !== undefined),
+    'from controlled to uncontrolled',
   )
 
   const {current: initialState} = React.useRef({on: initialOn})
